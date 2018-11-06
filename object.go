@@ -9,16 +9,20 @@ import (
 	"fmt"
 )
 
+//PyObject : https://docs.python.org/3/c-api/structures.html?highlight=pyobject#c.PyObject
 type PyObject C.PyObject
 
+//IncRef : https://docs.python.org/3/c-api/refcounting.html#c.Py_INCREF
 func (pyObject *PyObject) IncRef() {
 	C.Py_IncRef((*C.PyObject)(pyObject))
 }
 
+//DecRef : https://docs.python.org/3/c-api/refcounting.html#c.Py_DECREF
 func (pyObject *PyObject) DecRef() {
 	C.Py_DecRef((*C.PyObject)(pyObject))
 }
 
+//ReprEnter : https://docs.python.org/3/c-api/exceptions.html#c.Py_ReprEnter
 func (pyObject *PyObject) ReprEnter() (bool, error) {
 	if ret := C.Py_ReprEnter((*C.PyObject)(pyObject)); ret < 0 {
 		return false, fmt.Errorf("recursion limit is reached")
@@ -28,6 +32,7 @@ func (pyObject *PyObject) ReprEnter() (bool, error) {
 	return false, nil
 }
 
+//ReprLeave : https://docs.python.org/3/c-api/exceptions.html#c.Py_ReprLeave
 func (pyObject *PyObject) ReprLeave() {
 	C.Py_ReprLeave((*C.PyObject)(pyObject))
 }

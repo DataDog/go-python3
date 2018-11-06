@@ -9,6 +9,10 @@ import (
 	"unsafe"
 )
 
+/*
+All standard Python exceptions are available as global variables whose names are PyExc_ followed by the Python exception name.
+These have the type PyObject*; they are all class objects.
+*/
 var (
 	BaseException          = (*PyObject)(C.PyExc_BaseException)
 	Exception              = (*PyObject)(C.PyExc_Exception)
@@ -65,6 +69,7 @@ var (
 	ZeroDivisionError      = (*PyObject)(C.PyExc_ZeroDivisionError)
 )
 
+//PyErr_NewException : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_NewException
 func PyErr_NewException(name string, base, dict *PyObject) *PyObject {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
@@ -72,6 +77,7 @@ func PyErr_NewException(name string, base, dict *PyObject) *PyObject {
 	return (*PyObject)(C.PyErr_NewException(cname, (*C.PyObject)(base), (*C.PyObject)(dict)))
 }
 
+//PyErr_NewExceptionWithDoc : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_NewExceptionWithDoc
 func PyErr_NewExceptionWithDoc(name, doc string, base, dict *PyObject) *PyObject {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
@@ -82,26 +88,32 @@ func PyErr_NewExceptionWithDoc(name, doc string, base, dict *PyObject) *PyObject
 	return (*PyObject)(C.PyErr_NewExceptionWithDoc(cname, cdoc, (*C.PyObject)(base), (*C.PyObject)(dict)))
 }
 
+//PyException_GetTraceback : https://docs.python.org/3/c-api/exceptions.html#c.PyException_GetTraceback
 func PyException_GetTraceback(ex *PyObject) *PyObject {
 	return (*PyObject)(C.PyException_GetTraceback((*C.PyObject)(ex)))
 }
 
+//PyException_SetTraceback : https://docs.python.org/3/c-api/exceptions.html#c.PyException_SetTraceback
 func PyException_SetTraceback(ex, tb *PyObject) {
 	C.PyException_SetTraceback((*C.PyObject)(ex), (*C.PyObject)(tb))
 }
 
+//PyException_GetContext : https://docs.python.org/3/c-api/exceptions.html#c.PyException_GetContext
 func PyException_GetContext(ex *PyObject) *PyObject {
 	return (*PyObject)(C.PyException_GetContext((*C.PyObject)(ex)))
 }
 
+//PyException_SetContext : https://docs.python.org/3/c-api/exceptions.html#c.PyException_SetContext
 func PyException_SetContext(ex, ctx *PyObject) {
 	C.PyException_SetContext((*C.PyObject)(ex), (*C.PyObject)(ctx))
 }
 
+//PyException_GetCause : https://docs.python.org/3/c-api/exceptions.html#c.PyException_GetCause
 func PyException_GetCause(ex *PyObject) *PyObject {
 	return (*PyObject)(C.PyException_GetCause((*C.PyObject)(ex)))
 }
 
+//PyException_SetCause : https://docs.python.org/3/c-api/exceptions.html#c.PyException_SetCause
 func PyException_SetCause(ex, cause *PyObject) {
 	C.PyException_SetCause((*C.PyObject)(ex), (*C.PyObject)(cause))
 }

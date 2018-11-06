@@ -11,6 +11,7 @@ import (
 	"unsafe"
 )
 
+//Py_EnterRecursiveCall : https://docs.python.org/3/c-api/exceptions.html#c.Py_EnterRecursiveCall
 func Py_EnterRecursiveCall(where string) error {
 	cwhere := C.CString(where)
 	C.free(unsafe.Pointer(cwhere))
@@ -21,6 +22,7 @@ func Py_EnterRecursiveCall(where string) error {
 	return nil
 }
 
+//Py_LeaveRecursiveCall : https://docs.python.org/3/c-api/exceptions.html#c.Py_LeaveRecursiveCall
 func Py_LeaveRecursiveCall() {
 	C._Py_LeaveRecursiveCall()
 }

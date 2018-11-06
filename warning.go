@@ -10,6 +10,10 @@ import (
 	"unsafe"
 )
 
+/*
+All standard Python warning categories are available as global variables whose names are PyExc_ followed by the Python exception name.
+These have the type PyObject*; they are all class objects.
+*/
 var (
 	Warning                   = (*PyObject)(C.PyExc_Warning)
 	BytesWarning              = (*PyObject)(C.PyExc_BytesWarning)
@@ -24,7 +28,8 @@ var (
 	UserWarning               = (*PyObject)(C.PyExc_UserWarning)
 )
 
-func PyErr_WarnEx(category *PyObject, message string, stack_level uint) error {
+//PyErr_WarnEx : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_WarnEx
+func PyErr_WarnEx(category *PyObject, message string, stack_level int) error {
 	cmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(cmessage))
 
@@ -36,6 +41,7 @@ func PyErr_WarnEx(category *PyObject, message string, stack_level uint) error {
 	return nil
 }
 
+//PyErr_WarnExplicitObject : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_WarnExplicitObject
 func PyErr_WarnExplicitObject(category *PyObject, message *PyObject, filename *PyObject, lineno int, module *PyObject, registry *PyObject) error {
 
 	ret := C.PyErr_WarnExplicitObject((*C.PyObject)(category), (*C.PyObject)(message), (*C.PyObject)(filename), C.int(lineno), (*C.PyObject)(module), (*C.PyObject)(registry))
@@ -46,6 +52,7 @@ func PyErr_WarnExplicitObject(category *PyObject, message *PyObject, filename *P
 	return nil
 }
 
+//PyErr_WarnExplicit : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_WarnExplicit
 func PyErr_WarnExplicit(category *PyObject, message string, filename string, lineno int, module string, registry *PyObject) error {
 	cmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(cmessage))
