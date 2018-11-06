@@ -23,7 +23,8 @@ func Py_Main(args []string) error {
 		if warg == nil {
 			return fmt.Errorf("Unable to convert command line to *wchar_t")
 		}
-		defer C.free(unsafe.Pointer(warg))
+		// Py_DecodeLocale requires a call to PyMem_RawFree to free the memory
+		defer C.PyMem_RawFree(unsafe.Pointer(warg))
 
 		argv[i] = warg
 	}
