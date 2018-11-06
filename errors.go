@@ -2,7 +2,6 @@ package python3
 
 /*
 #include "Python.h"
-#include "errors.h"
 */
 import "C"
 
