@@ -15,17 +15,17 @@ All standard Python warning categories are available as global variables whose n
 These have the type PyObject*; they are all class objects.
 */
 var (
-	Warning                   = (*PyObject)(C.PyExc_Warning)
-	BytesWarning              = (*PyObject)(C.PyExc_BytesWarning)
-	DeprecationWarning        = (*PyObject)(C.PyExc_DeprecationWarning)
-	FutureWarning             = (*PyObject)(C.PyExc_FutureWarning)
-	ImportWarning             = (*PyObject)(C.PyExc_ImportWarning)
-	PendingDeprecationWarning = (*PyObject)(C.PyExc_PendingDeprecationWarning)
-	ResourceWarning           = (*PyObject)(C.PyExc_ResourceWarning)
-	RuntimeWarning            = (*PyObject)(C.PyExc_RuntimeWarning)
-	SyntaxWarning             = (*PyObject)(C.PyExc_SyntaxWarning)
-	UnicodeWarning            = (*PyObject)(C.PyExc_UnicodeWarning)
-	UserWarning               = (*PyObject)(C.PyExc_UserWarning)
+	Warning                   = togo(C.PyExc_Warning)
+	BytesWarning              = togo(C.PyExc_BytesWarning)
+	DeprecationWarning        = togo(C.PyExc_DeprecationWarning)
+	FutureWarning             = togo(C.PyExc_FutureWarning)
+	ImportWarning             = togo(C.PyExc_ImportWarning)
+	PendingDeprecationWarning = togo(C.PyExc_PendingDeprecationWarning)
+	ResourceWarning           = togo(C.PyExc_ResourceWarning)
+	RuntimeWarning            = togo(C.PyExc_RuntimeWarning)
+	SyntaxWarning             = togo(C.PyExc_SyntaxWarning)
+	UnicodeWarning            = togo(C.PyExc_UnicodeWarning)
+	UserWarning               = togo(C.PyExc_UserWarning)
 )
 
 //PyErr_WarnEx : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_WarnEx
@@ -33,7 +33,7 @@ func PyErr_WarnEx(category *PyObject, message string, stack_level int) error {
 	cmessage := C.CString(message)
 	defer C.free(unsafe.Pointer(cmessage))
 
-	ret := C.PyErr_WarnEx((*C.PyObject)(category), cmessage, C.Py_ssize_t(stack_level))
+	ret := C.PyErr_WarnEx(toc(category), cmessage, C.Py_ssize_t(stack_level))
 
 	if ret == -1 {
 		return fmt.Errorf("An exception was raised during warning execution")
@@ -44,7 +44,7 @@ func PyErr_WarnEx(category *PyObject, message string, stack_level int) error {
 //PyErr_WarnExplicitObject : https://docs.python.org/3/c-api/exceptions.html#c.PyErr_WarnExplicitObject
 func PyErr_WarnExplicitObject(category *PyObject, message *PyObject, filename *PyObject, lineno int, module *PyObject, registry *PyObject) error {
 
-	ret := C.PyErr_WarnExplicitObject((*C.PyObject)(category), (*C.PyObject)(message), (*C.PyObject)(filename), C.int(lineno), (*C.PyObject)(module), (*C.PyObject)(registry))
+	ret := C.PyErr_WarnExplicitObject(toc(category), toc(message), toc(filename), C.int(lineno), toc(module), toc(registry))
 
 	if ret == -1 {
 		return fmt.Errorf("An exception was raised during warning execution")
@@ -61,7 +61,7 @@ func PyErr_WarnExplicit(category *PyObject, message string, filename string, lin
 	cmodule := C.CString(module)
 	defer C.free(unsafe.Pointer(cmodule))
 
-	ret := C.PyErr_WarnExplicit((*C.PyObject)(category), cmessage, cfilename, C.int(lineno), cmodule, (*C.PyObject)(registry))
+	ret := C.PyErr_WarnExplicit(toc(category), cmessage, cfilename, C.int(lineno), cmodule, toc(registry))
 
 	if ret == -1 {
 		return fmt.Errorf("An exception was raised during warning execution")
