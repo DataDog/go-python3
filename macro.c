@@ -34,3 +34,42 @@ int _PyComplex_Check(PyObject *p) {
 int _PyComplex_CheckExact(PyObject *p) {
     return PyComplex_CheckExact(p);
 }
+
+int _PyBytes_Check(PyObject *o) {
+    return PyBytes_Check(o);
+}
+int _PyBytes_CheckExact(PyObject *o) {
+    return PyBytes_CheckExact(o);
+}
+
+int _PyByteArray_Check(PyObject *o) {
+    return PyByteArray_Check(o);
+}
+int _PyByteArray_CheckExact(PyObject *o) {
+    return PyByteArray_CheckExact(o);
+}
+
+int _PyUnicode_Check(PyObject *o) {
+    return PyUnicode_Check(o);
+}
+int _PyUnicode_CheckExact(PyObject *o) {
+    return PyUnicode_CheckExact(o);
+}
+
+int _PyTuple_Check(PyObject *p) {
+    return _PyTuple_Check(p);
+}
+int _PyTuple_CheckExact(PyObject *p) {
+    return _PyTuple_CheckExact(p);
+}
+
+int _PyObject_DelAttr(PyObject *o, PyObject *attr_name) {
+    return PyObject_DelAttr(o, attr_name);
+}
+int _PyObject_DelAttrString(PyObject *o, const char *attr_name) {
+    return PyObject_DelAttrString(o, attr_name);
+}
+
+int _PyObject_TypeCheck(PyObject *o, PyTypeObject *type) {
+    return PyObject_TypeCheck(o, type);
+}

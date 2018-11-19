@@ -13,3 +13,20 @@ int _PyFloat_CheckExact(PyObject *p);
 
 int _PyComplex_Check(PyObject *p);
 int _PyComplex_CheckExact(PyObject *p);
+
+int _PyBytes_Check(PyObject *o);
+int _PyBytes_CheckExact(PyObject *o);
+
+int _PyByteArray_Check(PyObject *o);
+int _PyByteArray_CheckExact(PyObject *o);
+
+int _PyUnicode_Check(PyObject *o);
+int _PyUnicode_CheckExact(PyObject *o);
+
+int _PyTuple_Check(PyObject *p);
+int _PyTuple_CheckExact(PyObject *p);
+
+int _PyObject_DelAttr(PyObject *o, PyObject *attr_name);
+int _PyObject_DelAttrString(PyObject *o, const char *attr_name);
+
+int _PyObject_TypeCheck(PyObject *o, PyTypeObject *type);
