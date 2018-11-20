@@ -9,6 +9,12 @@ import (
 	"unsafe"
 )
 
+var (
+	programName *C.wchar_t
+	pythonPath  *C.wchar_t
+	pythonHome  *C.wchar_t
+)
+
 //Py_Initialize : https://docs.python.org/3/c-api/init.html#c.Py_Initialize
 func Py_Initialize() {
 	C.Py_Initialize()
@@ -61,16 +67,20 @@ func Py_SetProgramName(name string) {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
 
-	wcname := C.Py_DecodeLocale(cname, nil)
-	// wcname is copied, safe to free after calling C.Py_SetProgramName
-	defer C.PyMem_RawFree(unsafe.Pointer(wcname))
+	newProgramName := C.Py_DecodeLocale(cname, nil)
+	C.Py_SetProgramName(newProgramName)
 
-	C.Py_SetProgramName(wcname)
+	C.PyMem_RawFree(unsafe.Pointer(programName))
+	programName = newProgramName
+
 }
 
 //Py_GetProgramName : https://docs.python.org/3/c-api/init.html#c.Py_GetProgramName
 func Py_GetProgramName() string {
 	wcname := C.Py_GetProgramName()
+	if wcname == nil {
+		return ""
+	}
 	cname := C.Py_EncodeLocale(wcname, nil)
 	defer C.PyMem_Free(unsafe.Pointer(cname))
 
@@ -80,6 +90,9 @@ func Py_GetProgramName() string {
 //Py_GetPrefix : https://docs.python.org/3/c-api/init.html#c.Py_GetPrefix
 func Py_GetPrefix() string {
 	wcname := C.Py_GetPrefix()
+	if wcname == nil {
+		return ""
+	}
 	cname := C.Py_EncodeLocale(wcname, nil)
 	defer C.PyMem_Free(unsafe.Pointer(cname))
 
@@ -89,6 +102,9 @@ func Py_GetPrefix() string {
 //Py_GetExecPrefix : https://docs.python.org/3/c-api/init.html#c.Py_GetExecPrefix
 func Py_GetExecPrefix() string {
 	wcname := C.Py_GetExecPrefix()
+	if wcname == nil {
+		return ""
+	}
 	cname := C.Py_EncodeLocale(wcname, nil)
 	defer C.PyMem_Free(unsafe.Pointer(cname))
 
@@ -98,6 +114,9 @@ func Py_GetExecPrefix() string {
 //Py_GetProgramFullPath : https://docs.python.org/3/c-api/init.html#c.Py_GetProgramFullPath
 func Py_GetProgramFullPath() string {
 	wcname := C.Py_GetProgramFullPath()
+	if wcname == nil {
+		return ""
+	}
 	cname := C.Py_EncodeLocale(wcname, nil)
 	defer C.PyMem_Free(unsafe.Pointer(cname))
 
@@ -107,6 +126,9 @@ func Py_GetProgramFullPath() string {
 //Py_GetPath : https://docs.python.org/3/c-api/init.html#c.Py_GetPath
 func Py_GetPath() string {
 	wcname := C.Py_GetPath()
+	if wcname == nil {
+		return ""
+	}
 	cname := C.Py_EncodeLocale(wcname, nil)
 	defer C.PyMem_Free(unsafe.Pointer(cname))
 
@@ -118,11 +140,11 @@ func Py_SetPath(path string) {
 	cpath := C.CString(path)
 	defer C.free(unsafe.Pointer(cpath))
 
-	wcpath := C.Py_DecodeLocale(cpath, nil)
-	// wcpath is copied, safe to free after calling C.Py_SetPath
-	defer C.PyMem_RawFree(unsafe.Pointer(wcpath))
+	newPath := C.Py_DecodeLocale(cpath, nil)
+	C.Py_SetPath(newPath)
 
-	C.Py_SetPath(wcpath)
+	C.PyMem_RawFree(unsafe.Pointer(pythonPath))
+	pythonHome = newPath
 }
 
 //Py_GetVersion : https://docs.python.org/3/c-api/init.html#c.Py_GetVersion
@@ -199,16 +221,19 @@ func Py_SetPythonHome(home string) {
 	chome := C.CString(home)
 	defer C.free(unsafe.Pointer(chome))
 
-	wchome := C.Py_DecodeLocale(chome, nil)
-	// wcpath is copied, safe to free after calling C.Py_SetPath
-	defer C.PyMem_RawFree(unsafe.Pointer(wchome))
+	newHome := C.Py_DecodeLocale(chome, nil)
+	C.Py_SetPythonHome(newHome)
 
-	C.Py_SetPythonHome(wchome)
+	C.PyMem_RawFree(unsafe.Pointer(pythonHome))
+	pythonHome = newHome
 }
 
 //Py_GetPythonHome : https://docs.python.org/3/c-api/init.html#c.Py_GetPythonHome
 func Py_GetPythonHome() string {
 	wchome := C.Py_GetPythonHome()
+	if wchome == nil {
+		return ""
+	}
 	chome := C.Py_EncodeLocale(wchome, nil)
 	defer C.PyMem_Free(unsafe.Pointer(chome))
 
