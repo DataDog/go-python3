@@ -88,3 +88,9 @@ func PyUnicode_AsUCS4(u *PyObject, buffer []rune) error {
 	}
 	return nil
 }
+
+//PyUnicode_AsUTF8 : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_AsUTF8
+func PyUnicode_AsUTF8(unicode *PyObject) string {
+	cutf8 := C.PyUnicode_AsUTF8(toc(unicode))
+	return C.GoString(cutf8)
+}

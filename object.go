@@ -13,6 +13,15 @@ import (
 	"unsafe"
 )
 
+var (
+	Py_LT = C.Py_LT
+	Py_LE = C.Py_LE
+	Py_EQ = C.Py_EQ
+	Py_NE = C.Py_NE
+	Py_GT = C.Py_GT
+	Py_GE = C.Py_GE
+)
+
 //PyObject : https://docs.python.org/3/c-api/structures.html?highlight=pyobject#c.PyObject
 type PyObject C.PyObject
 
@@ -83,11 +92,14 @@ func (pyObject *PyObject) SetAttr(attr_name *PyObject, v *PyObject) {
 }
 
 //SetAttrString : https://docs.python.org/3/c-api/object.html#c.PyObject_SetAttrString
-func (pyObject *PyObject) SetAttrString(attr_name string, v *PyObject) {
+func (pyObject *PyObject) SetAttrString(attr_name string, v *PyObject) error {
 	cattr_name := C.CString(attr_name)
 	defer C.free(unsafe.Pointer(cattr_name))
 
-	C.PyObject_SetAttrString(toc(pyObject), cattr_name, toc(v))
+	if C.PyObject_SetAttrString(toc(pyObject), cattr_name, toc(v)) == -1 {
+		return fmt.Errorf("PyObject_SetAttrString: an error occured")
+	}
+	return nil
 }
 
 //DelAttr : https://docs.python.org/3/c-api/object.html#c.PyObject_DelAttr

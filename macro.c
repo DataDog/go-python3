@@ -8,6 +8,15 @@ void _Py_LeaveRecursiveCall() {
     Py_LeaveRecursiveCall();
 }
 
+int _PyType_Check(PyObject *o) {
+    return PyType_Check(o);
+}
+int _PyType_CheckExact(PyObject *o) {
+    return PyType_CheckExact(o);
+}
+
+
+
 int _PyLong_Check(PyObject *p) {
     return PyLong_Check(p);
 }
@@ -57,10 +66,31 @@ int _PyUnicode_CheckExact(PyObject *o) {
 }
 
 int _PyTuple_Check(PyObject *p) {
-    return _PyTuple_Check(p);
+    return PyTuple_Check(p);
 }
 int _PyTuple_CheckExact(PyObject *p) {
-    return _PyTuple_CheckExact(p);
+    return PyTuple_CheckExact(p);
+}
+
+int _PyList_Check(PyObject *p) {
+    return PyList_Check(p);
+}
+int _PyList_CheckExact(PyObject *p) {
+    return PyList_CheckExact(p);
+}
+
+int _PyDict_Check(PyObject *p) {
+    return PyDict_Check(p);
+}
+int _PyDict_CheckExact(PyObject *p) {
+    return PyDict_CheckExact(p);
+}
+
+int _PyModule_Check(PyObject *p) {
+    return PyModule_Check(p);
+}
+int _PyModule_CheckExact(PyObject *p) {
+    return PyModule_CheckExact(p);
 }
 
 int _PyObject_DelAttr(PyObject *o, PyObject *attr_name) {
