@@ -1,8 +1,11 @@
 package python3
 
+//go:generate go run script/variadic.go
+
 /*
 #include "Python.h"
 #include "macro.h"
+#include "variadic.h"
 */
 import "C"
 import (
@@ -165,6 +168,31 @@ func (pyObject *PyObject) Call(args *PyObject, kwargs *PyObject) *PyObject {
 //CallObject : https://docs.python.org/3/c-api/object.html#c.PyObject_CallObject
 func (pyObject *PyObject) CallObject(args *PyObject) *PyObject {
 	return togo(C.PyObject_CallObject(toc(pyObject), toc(args)))
+}
+
+//CallFunctionObjArgs : https://docs.python.org/3/c-api/object.html#c.PyObject_CallFunctionObjArgs
+func (pyObject *PyObject) CallFunctionObjArgs(args ...*PyObject) (*PyObject, error) {
+
+	if len(args) > 20 {
+		return nil, fmt.Errorf("CallFunctionObjArgs: too many arguments")
+	}
+	cargs := make([]*C.PyObject, len(args), len(args))
+	for i, arg := range args {
+		cargs[i] = toc(arg)
+	}
+	return togo(C._PyObject_CallFunctionObjArgs(toc(pyObject), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
+}
+
+//CallMethodObjArgs : https://docs.python.org/3/c-api/object.html#c.PyObject_CallMethodObjArgs
+func (pyObject *PyObject) CallMethodObjArgs(name *PyObject, args ...*PyObject) (*PyObject, error) {
+	if len(args) > 20 {
+		return nil, fmt.Errorf("CallMethodObjArgs: too many arguments")
+	}
+	cargs := make([]*C.PyObject, len(args), len(args))
+	for i, arg := range args {
+		cargs[i] = toc(arg)
+	}
+	return togo(C._PyObject_CallMethodObjArgs(toc(pyObject), toc(name), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
 }
 
 //Hash : https://docs.python.org/3/c-api/object.html#c.PyObject_Hash
