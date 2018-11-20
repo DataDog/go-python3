@@ -1,3 +1,6 @@
+#ifndef MACRO_H
+#define MACRO_H
+
 #include "Python.h"
 
 int _Py_EnterRecursiveCall(const char *where);
@@ -42,3 +45,5 @@ int _PyObject_DelAttr(PyObject *o, PyObject *attr_name);
 int _PyObject_DelAttrString(PyObject *o, const char *attr_name);
 
 int _PyObject_TypeCheck(PyObject *o, PyTypeObject *type);
+
+#endif
