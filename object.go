@@ -188,6 +188,10 @@ func (pyObject *PyObject) CallFunctionObjArgs(args ...*PyObject) (*PyObject, err
 	if len(args) > 20 {
 		return nil, fmt.Errorf("CallFunctionObjArgs: too many arguments")
 	}
+	if len(args) == 0 {
+		return togo(C._PyObject_CallFunctionObjArgs(toc(pyObject), 0, (**C.PyObject)(nil))), nil
+	}
+
 	cargs := make([]*C.PyObject, len(args), len(args))
 	for i, arg := range args {
 		cargs[i] = toc(arg)
@@ -200,6 +204,10 @@ func (pyObject *PyObject) CallMethodObjArgs(name *PyObject, args ...*PyObject) (
 	if len(args) > 20 {
 		return nil, fmt.Errorf("CallMethodObjArgs: too many arguments")
 	}
+	if len(args) == 0 {
+		return togo(C._PyObject_CallMethodObjArgs(toc(pyObject), toc(name), 0, (**C.PyObject)(nil))), nil
+	}
+
 	cargs := make([]*C.PyObject, len(args), len(args))
 	for i, arg := range args {
 		cargs[i] = toc(arg)
