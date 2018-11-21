@@ -207,6 +207,14 @@ func (pyObject *PyObject) CallMethodObjArgs(name *PyObject, args ...*PyObject) (
 	return togo(C._PyObject_CallMethodObjArgs(toc(pyObject), toc(name), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
 }
 
+//CallMethodArgs : same as CallMethodObjArgs but with name as go string
+func (pyObject *PyObject) CallMethodArgs(name string, args ...*PyObject) (*PyObject, error) {
+	pyName := PyUnicode_FromString(name)
+	defer pyName.DecRef()
+
+	return pyObject.CallMethodObjArgs(pyName, args...)
+}
+
 //Hash : https://docs.python.org/3/c-api/object.html#c.PyObject_Hash
 func (pyObject *PyObject) Hash() (int, error) {
 	ret := C.PyObject_Hash(toc(pyObject))
