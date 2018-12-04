@@ -55,9 +55,7 @@ func renderTemplate(n int, functionName string, pyArgs ...string) string {
 		for j := 0; j < i; j++ {
 			args += fmt.Sprintf("argv[%d], ", j)
 		}
-		if len(args) > 0 {
-			args = args[:len(args)-2]
-		}
+		args += "NULL"
 		switchTemplate += fmt.Sprintf("            result = %s(%s);\n", functionName, args)
 		switchTemplate += fmt.Sprintf("            break;\n")
 	}
