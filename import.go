@@ -105,7 +105,6 @@ func PyImport_GetMagicNumber() int {
 //PyImport_GetMagicTag : https://docs.python.org/3/c-api/import.html#c.PyImport_GetMagicTag
 func PyImport_GetMagicTag() string {
 	cmagicTag := C.PyImport_GetMagicTag()
-	defer C.free(unsafe.Pointer(cmagicTag))
 
 	return C.GoString(cmagicTag)
 }
