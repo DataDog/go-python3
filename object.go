@@ -13,13 +13,14 @@ import (
 	"unsafe"
 )
 
+// Constants used for comparison in PyObject_RichCompareBool
 var (
-	Py_LT = C.Py_LT
-	Py_LE = C.Py_LE
-	Py_EQ = C.Py_EQ
-	Py_NE = C.Py_NE
-	Py_GT = C.Py_GT
-	Py_GE = C.Py_GE
+	Py_LT = int(C.Py_LT)
+	Py_LE = int(C.Py_LE)
+	Py_EQ = int(C.Py_EQ)
+	Py_NE = int(C.Py_NE)
+	Py_GT = int(C.Py_GT)
+	Py_GE = int(C.Py_GE)
 )
 
 //PyObject : https://docs.python.org/3/c-api/structures.html?highlight=pyobject#c.PyObject
