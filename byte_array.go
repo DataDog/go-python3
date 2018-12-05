@@ -12,13 +12,13 @@ import "unsafe"
 var ByteArray = togo(C._go_PyByteArray_Type)
 
 //PyByteArray_Check : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_Check
-func PyByteArray_Check(p *PyObject) bool {
-	return C._go_PyByteArray_Check(toc(p)) != 0
+func PyByteArray_Check(o *PyObject) bool {
+	return C._go_PyByteArray_Check(toc(o)) != 0
 }
 
 //PyByteArray_CheckExact : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_CheckExact
-func PyByteArray_CheckExact(p *PyObject) bool {
-	return C._go_PyByteArray_CheckExact(toc(p)) != 0
+func PyByteArray_CheckExact(o *PyObject) bool {
+	return C._go_PyByteArray_CheckExact(toc(o)) != 0
 }
 
 //PyByteArray_FromObject : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_FromObject

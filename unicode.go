@@ -15,13 +15,13 @@ import (
 var Unicode = togo(C._go_PyUnicode_Type)
 
 //PyUnicode_Check : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_Check
-func PyUnicode_Check(p *PyObject) bool {
-	return C._go_PyUnicode_Check(toc(p)) != 0
+func PyUnicode_Check(o *PyObject) bool {
+	return C._go_PyUnicode_Check(toc(o)) != 0
 }
 
 //PyUnicode_CheckExact : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_CheckExact
-func PyUnicode_CheckExact(p *PyObject) bool {
-	return C._go_PyUnicode_CheckExact(toc(p)) != 0
+func PyUnicode_CheckExact(o *PyObject) bool {
+	return C._go_PyUnicode_CheckExact(toc(o)) != 0
 }
 
 //PyUnicode_New : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_New
