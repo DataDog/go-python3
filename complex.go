@@ -8,12 +8,12 @@ import "C"
 
 //PyComplex_Check : https://docs.python.org/3/c-api/complex.html#c.PyComplex_Check
 func PyComplex_Check(p *PyObject) bool {
-	return C._PyComplex_Check(toc(p)) != 0
+	return C._go_PyComplex_Check(toc(p)) != 0
 }
 
 //PyComplex_CheckExact : https://docs.python.org/3/c-api/complex.html#c.PyComplex_CheckExact
 func PyComplex_CheckExact(p *PyObject) bool {
-	return C._PyComplex_CheckExact(toc(p)) != 0
+	return C._go_PyComplex_CheckExact(toc(p)) != 0
 }
 
 //PyComplex_FromDoubles : https://docs.python.org/3/c-api/complex.html#c.PyComplex_FromDoubles

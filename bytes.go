@@ -9,12 +9,12 @@ import "unsafe"
 
 //PyBytes_Check : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_Check
 func PyBytes_Check(p *PyObject) bool {
-	return C._PyBytes_Check(toc(p)) != 0
+	return C._go_PyBytes_Check(toc(p)) != 0
 }
 
 //PyBytes_CheckExact : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_CheckExact
 func PyBytes_CheckExact(p *PyObject) bool {
-	return C._PyBytes_CheckExact(toc(p)) != 0
+	return C._go_PyBytes_CheckExact(toc(p)) != 0
 }
 
 //PyBytes_FromString : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_FromString

@@ -16,7 +16,7 @@ func Py_EnterRecursiveCall(where string) error {
 	cwhere := C.CString(where)
 	C.free(unsafe.Pointer(cwhere))
 
-	if C._Py_EnterRecursiveCall(cwhere) != 0 {
+	if C._go_Py_EnterRecursiveCall(cwhere) != 0 {
 		return fmt.Errorf("An error has been set in the python interpreter")
 	}
 	return nil
@@ -24,5 +24,5 @@ func Py_EnterRecursiveCall(where string) error {
 
 //Py_LeaveRecursiveCall : https://docs.python.org/3/c-api/exceptions.html#c.Py_LeaveRecursiveCall
 func Py_LeaveRecursiveCall() {
-	C._Py_LeaveRecursiveCall()
+	C._go_Py_LeaveRecursiveCall()
 }

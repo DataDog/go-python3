@@ -8,12 +8,12 @@ import "C"
 
 //PyFloat_Check : https://docs.python.org/3/c-api/float.html#c.PyFloat_Check
 func PyFloat_Check(p *PyObject) bool {
-	return C._PyFloat_Check(toc(p)) != 0
+	return C._go_PyFloat_Check(toc(p)) != 0
 }
 
 //PyFloat_CheckExact : https://docs.python.org/3/c-api/float.html#c.PyFloat_CheckExact
 func PyFloat_CheckExact(p *PyObject) bool {
-	return C._PyFloat_CheckExact(toc(p)) != 0
+	return C._go_PyFloat_CheckExact(toc(p)) != 0
 }
 
 //PyFloat_FromDouble : https://docs.python.org/3/c-api/float.html#c.PyFloat_FromDouble

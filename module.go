@@ -9,12 +9,12 @@ import "unsafe"
 
 //PyModule_Check : https://docs.python.org/3/c-api/module.html#c.PyModule_Check
 func PyModule_Check(p *PyObject) bool {
-	return C._PyModule_Check(toc(p)) != 0
+	return C._go_PyModule_Check(toc(p)) != 0
 }
 
 //PyModule_CheckExact : https://docs.python.org/3/c-api/module.html#c.PyModule_CheckExact
 func PyModule_CheckExact(p *PyObject) bool {
-	return C._PyModule_CheckExact(toc(p)) != 0
+	return C._go_PyModule_CheckExact(toc(p)) != 0
 }
 
 //PyModule_NewObject : https://docs.python.org/3/c-api/module.html#c.PyModule_NewObject

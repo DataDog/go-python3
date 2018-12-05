@@ -11,12 +11,12 @@ import (
 
 //PyList_Check : https://docs.python.org/3/c-api/list.html#c.PyList_Check
 func PyList_Check(p *PyObject) bool {
-	return C._PyList_Check(toc(p)) != 0
+	return C._go_PyList_Check(toc(p)) != 0
 }
 
 //PyList_CheckExact : https://docs.python.org/3/c-api/list.html#c.PyList_CheckExact
 func PyList_CheckExact(p *PyObject) bool {
-	return C._PyList_CheckExact(toc(p)) != 0
+	return C._go_PyList_CheckExact(toc(p)) != 0
 }
 
 //PyList_New : https://docs.python.org/3/c-api/list.html#c.PyList_New

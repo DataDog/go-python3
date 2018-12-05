@@ -12,12 +12,12 @@ import (
 
 //PyUnicode_Check : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_Check
 func PyUnicode_Check(p *PyObject) bool {
-	return C._PyUnicode_Check(toc(p)) != 0
+	return C._go_PyUnicode_Check(toc(p)) != 0
 }
 
 //PyUnicode_CheckExact : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_CheckExact
 func PyUnicode_CheckExact(p *PyObject) bool {
-	return C._PyUnicode_CheckExact(toc(p)) != 0
+	return C._go_PyUnicode_CheckExact(toc(p)) != 0
 }
 
 //PyUnicode_New : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_New

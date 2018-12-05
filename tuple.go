@@ -8,12 +8,12 @@ import "C"
 
 //PyTuple_Check : https://docs.python.org/3/c-api/tuple.html#c.PyTuple_Check
 func PyTuple_Check(p *PyObject) bool {
-	return C._PyTuple_Check(toc(p)) != 0
+	return C._go_PyTuple_Check(toc(p)) != 0
 }
 
 //PyTuple_CheckExact : https://docs.python.org/3/c-api/tuple.html#c.PyTuple_CheckExact
 func PyTuple_CheckExact(p *PyObject) bool {
-	return C._PyTuple_CheckExact(toc(p)) != 0
+	return C._go_PyTuple_CheckExact(toc(p)) != 0
 }
 
 //PyTuple_New : https://docs.python.org/3/c-api/tuple.html#c.PyTuple_New

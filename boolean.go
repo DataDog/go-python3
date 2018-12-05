@@ -14,7 +14,7 @@ var (
 
 //PyBool_Check : https://docs.python.org/3/c-api/bool.html#c.PyBool_Check
 func PyBool_Check(o *PyObject) bool {
-	return C._PyBool_Check(toc(o)) != 0
+	return C._go_PyBool_Check(toc(o)) != 0
 }
 
 //PyBool_FromLong : https://docs.python.org/3/c-api/bool.html#c.PyBool_FromLong

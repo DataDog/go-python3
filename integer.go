@@ -11,12 +11,12 @@ import (
 
 //PyLong_Check : https://docs.python.org/3/c-api/long.html#c.PyLong_Check
 func PyLong_Check(p *PyObject) bool {
-	return C._PyLong_Check(toc(p)) != 0
+	return C._go_PyLong_Check(toc(p)) != 0
 }
 
 //PyLong_CheckExact : https://docs.python.org/3/c-api/long.html#c.PyLong_CheckExact
 func PyLong_CheckExact(p *PyObject) bool {
-	return C._PyLong_CheckExact(toc(p)) != 0
+	return C._go_PyLong_CheckExact(toc(p)) != 0
 }
 
 //PyLong_FromLong : https://docs.python.org/3/c-api/long.html#c.PyLong_FromLong

@@ -1,6 +1,6 @@
 #include "Python.h"
 
-PyObject* _PyObject_CallFunctionObjArgs(PyObject *callable, int argc, PyObject **argv) {
+PyObject* _go_PyObject_CallFunctionObjArgs(PyObject *callable, int argc, PyObject **argv) {
 
     PyObject *result = NULL;
     switch (argc) {
@@ -70,7 +70,7 @@ PyObject* _PyObject_CallFunctionObjArgs(PyObject *callable, int argc, PyObject *
     }
     return result;
 }
-PyObject* _PyObject_CallMethodObjArgs(PyObject *obj, PyObject *name, int argc, PyObject **argv) {
+PyObject* _go_PyObject_CallMethodObjArgs(PyObject *obj, PyObject *name, int argc, PyObject **argv) {
 
     PyObject *result = NULL;
     switch (argc) {

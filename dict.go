@@ -12,12 +12,12 @@ import (
 
 //PyDict_Check : https://docs.python.org/3/c-api/dict.html#c.PyDict_Check
 func PyDict_Check(p *PyObject) bool {
-	return C._PyDict_Check(toc(p)) != 0
+	return C._go_PyDict_Check(toc(p)) != 0
 }
 
 //PyDict_CheckExact : https://docs.python.org/3/c-api/dict.html#c.PyDict_CheckExact
 func PyDict_CheckExact(p *PyObject) bool {
-	return C._PyDict_CheckExact(toc(p)) != 0
+	return C._go_PyDict_CheckExact(toc(p)) != 0
 }
 
 //PyDict_New : https://docs.python.org/3/c-api/dict.html#c.PyDict_New

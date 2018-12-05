@@ -105,7 +105,7 @@ func (pyObject *PyObject) SetAttrString(attr_name string, v *PyObject) error {
 
 //DelAttr : https://docs.python.org/3/c-api/object.html#c.PyObject_DelAttr
 func (pyObject *PyObject) DelAttr(attr_name *PyObject) {
-	C._PyObject_DelAttr(toc(pyObject), toc(attr_name))
+	C._go_PyObject_DelAttr(toc(pyObject), toc(attr_name))
 }
 
 //DelAttrString : https://docs.python.org/3/c-api/object.html#c.PyObject_DelAttrString
@@ -113,7 +113,7 @@ func (pyObject *PyObject) DelAttrString(attr_name string) {
 	cattr_name := C.CString(attr_name)
 	defer C.free(unsafe.Pointer(cattr_name))
 
-	C._PyObject_DelAttrString(toc(pyObject), cattr_name)
+	C._go_PyObject_DelAttrString(toc(pyObject), cattr_name)
 }
 
 //RichCompare : https://docs.python.org/3/c-api/object.html#c.PyObject_RichCompare
@@ -190,14 +190,14 @@ func (pyObject *PyObject) CallFunctionObjArgs(args ...*PyObject) (*PyObject, err
 		return nil, fmt.Errorf("CallFunctionObjArgs: too many arguments")
 	}
 	if len(args) == 0 {
-		return togo(C._PyObject_CallFunctionObjArgs(toc(pyObject), 0, (**C.PyObject)(nil))), nil
+		return togo(C._go_PyObject_CallFunctionObjArgs(toc(pyObject), 0, (**C.PyObject)(nil))), nil
 	}
 
 	cargs := make([]*C.PyObject, len(args), len(args))
 	for i, arg := range args {
 		cargs[i] = toc(arg)
 	}
-	return togo(C._PyObject_CallFunctionObjArgs(toc(pyObject), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
+	return togo(C._go_PyObject_CallFunctionObjArgs(toc(pyObject), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
 }
 
 //CallMethodObjArgs : https://docs.python.org/3/c-api/object.html#c.PyObject_CallMethodObjArgs
@@ -206,14 +206,14 @@ func (pyObject *PyObject) CallMethodObjArgs(name *PyObject, args ...*PyObject) (
 		return nil, fmt.Errorf("CallMethodObjArgs: too many arguments")
 	}
 	if len(args) == 0 {
-		return togo(C._PyObject_CallMethodObjArgs(toc(pyObject), toc(name), 0, (**C.PyObject)(nil))), nil
+		return togo(C._go_PyObject_CallMethodObjArgs(toc(pyObject), toc(name), 0, (**C.PyObject)(nil))), nil
 	}
 
 	cargs := make([]*C.PyObject, len(args), len(args))
 	for i, arg := range args {
 		cargs[i] = toc(arg)
 	}
-	return togo(C._PyObject_CallMethodObjArgs(toc(pyObject), toc(name), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
+	return togo(C._go_PyObject_CallMethodObjArgs(toc(pyObject), toc(name), C.int(len(args)), (**C.PyObject)(unsafe.Pointer(&cargs[0])))), nil
 }
 
 //CallMethodArgs : same as CallMethodObjArgs but with name as go string
