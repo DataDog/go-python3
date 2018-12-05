@@ -26,12 +26,12 @@ func PyByteArray_FromObject(o *PyObject) *PyObject {
 	return togo(C.PyByteArray_FromObject(toc(o)))
 }
 
-//PyBytes_FromStringAndSize : https://docs.python.org/3/c-api/bytearray.html#c.PyBytes_FromStringAndSize
-func PyBytes_FromStringAndSize(str string) *PyObject {
+//PyByteArray_FromStringAndSize : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_FromStringAndSize
+func PyByteArray_FromStringAndSize(str string) *PyObject {
 	cstr := C.CString(str)
 	defer C.free(unsafe.Pointer(cstr))
 
-	return togo(C.PyBytes_FromStringAndSize(cstr, C.Py_ssize_t(len(str))))
+	return togo(C.PyByteArray_FromStringAndSize(cstr, C.Py_ssize_t(len(str))))
 }
 
 //PyByteArray_Concat : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_Concat
