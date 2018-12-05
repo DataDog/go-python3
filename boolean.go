@@ -9,8 +9,8 @@ import "C"
 
 //python boolean constants
 var (
-	False = togo(C.Py_False)
-	True  = togo(C.Py_True)
+	Py_False = togo(C.Py_False)
+	Py_True  = togo(C.Py_True)
 )
 
 //Bool : https://docs.python.org/3/c-api/bool.html#c.PyBool_Type
