@@ -3,9 +3,13 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
 import "unsafe"
+
+//ByteArray : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_Type
+var ByteArray = togo(C._go_PyByteArray_Type)
 
 //PyByteArray_Check : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_Check
 func PyByteArray_Check(p *PyObject) bool {

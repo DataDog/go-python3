@@ -3,9 +3,13 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
 import "unsafe"
+
+//Module : https://docs.python.org/3/c-api/module.html#c.PyModule_Type
+var Module = togo(C._go_PyModule_Type)
 
 //PyModule_Check : https://docs.python.org/3/c-api/module.html#c.PyModule_Check
 func PyModule_Check(p *PyObject) bool {

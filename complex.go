@@ -3,8 +3,12 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
+
+//Complex : https://docs.python.org/3/c-api/complex.html#c.PyComplex_Type
+var Complex = togo(C._go_PyComplex_Type)
 
 //PyComplex_Check : https://docs.python.org/3/c-api/complex.html#c.PyComplex_Check
 func PyComplex_Check(p *PyObject) bool {

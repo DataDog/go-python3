@@ -3,6 +3,7 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
 
@@ -11,6 +12,9 @@ var (
 	False = togo(C.Py_False)
 	True  = togo(C.Py_True)
 )
+
+//Bool : https://docs.python.org/3/c-api/bool.html#c.PyBool_Type
+var Bool = togo(C._go_PyBool_Type)
 
 //PyBool_Check : https://docs.python.org/3/c-api/bool.html#c.PyBool_Check
 func PyBool_Check(o *PyObject) bool {

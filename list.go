@@ -3,11 +3,15 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
 import (
 	"fmt"
 )
+
+//List : https://docs.python.org/3/c-api/list.html#c.PyList_Type
+var List = togo(C._go_PyList_Type)
 
 //PyList_Check : https://docs.python.org/3/c-api/list.html#c.PyList_Check
 func PyList_Check(p *PyObject) bool {

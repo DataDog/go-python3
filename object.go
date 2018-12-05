@@ -23,6 +23,9 @@ var (
 	Py_GE = int(C.Py_GE)
 )
 
+//None : https://docs.python.org/3/c-api/none.html#c.Py_None
+var None = togo(C.Py_None)
+
 //PyObject : https://docs.python.org/3/c-api/structures.html?highlight=pyobject#c.PyObject
 type PyObject C.PyObject
 

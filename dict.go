@@ -3,12 +3,16 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
+#include "type.h"
 */
 import "C"
 import (
 	"fmt"
 	"unsafe"
 )
+
+//Dict : https://docs.python.org/3/c-api/dict.html#c.PyDict_Type
+var Dict = togo(C._go_PyDict_Type)
 
 //PyDict_Check : https://docs.python.org/3/c-api/dict.html#c.PyDict_Check
 func PyDict_Check(p *PyObject) bool {
