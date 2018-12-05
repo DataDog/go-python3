@@ -49,10 +49,10 @@ func TestRichCompare(t *testing.T) {
 
 	b1 := s1.RichCompare(s2, Py_EQ)
 	defer b1.DecRef()
-	assert.Equal(t, False, b1)
+	assert.Equal(t, Py_False, b1)
 
 	b2 := s1.RichCompare(s1, Py_EQ)
-	assert.Equal(t, True, b2)
+	assert.Equal(t, Py_True, b2)
 	defer b2.DecRef()
 
 }
@@ -175,20 +175,20 @@ func TestCallMethod(t *testing.T) {
 func TestIsTrue(t *testing.T) {
 	Py_Initialize()
 
-	b, _ := True.IsTrue()
+	b, _ := Py_True.IsTrue()
 	assert.True(t, b)
 
-	b, _ = False.IsTrue()
+	b, _ = Py_False.IsTrue()
 	assert.False(t, b)
 }
 
 func TestNot(t *testing.T) {
 	Py_Initialize()
 
-	b, _ := True.Not()
+	b, _ := Py_True.Not()
 	assert.False(t, b)
 
-	b, _ = False.Not()
+	b, _ = Py_False.Not()
 	assert.True(t, b)
 }
 
