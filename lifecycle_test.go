@@ -26,9 +26,12 @@ func TestInitializationEx(t *testing.T) {
 
 func TestProgramName(t *testing.T) {
 	Py_Finalize()
+	defaultName := Py_GetProgramName()
 	name := "py3é"
 	Py_SetProgramName(name)
 	assert.Equal(t, name, Py_GetProgramName())
+
+	Py_SetProgramName(defaultName)
 
 }
 
@@ -49,9 +52,11 @@ func TestProgramFullPath(t *testing.T) {
 
 func TestPath(t *testing.T) {
 	Py_Finalize()
+	defaultPath := Py_GetPath()
 	name := "påth"
 	Py_SetPath(name)
 	assert.Equal(t, name, Py_GetPath())
+	Py_SetPath(defaultPath)
 
 }
 
@@ -82,7 +87,9 @@ func TestBuildInfo(t *testing.T) {
 
 func TestPythonHome(t *testing.T) {
 	name := "høme"
+	defaultHome := Py_GetPythonHome()
 	Py_SetPythonHome(name)
 	assert.Equal(t, name, Py_GetPythonHome())
 
+	Py_SetPythonHome(defaultHome)
 }
