@@ -64,8 +64,8 @@ func PyUnicode_Fill(unicode *PyObject, start, length int, fill_char rune) int {
 }
 
 //PyUnicode_WriteChar : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_WriteChar
-func PyUnicode_WriteChar(unicode *PyObject, index int, character rune) {
-	C.PyUnicode_WriteChar(toc(unicode), C.Py_ssize_t(index), C.Py_UCS4(character))
+func PyUnicode_WriteChar(unicode *PyObject, index int, character rune) int {
+	return int(C.PyUnicode_WriteChar(toc(unicode), C.Py_ssize_t(index), C.Py_UCS4(character)))
 }
 
 //PyUnicode_ReadChar : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_ReadChar
