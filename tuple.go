@@ -44,4 +44,3 @@ func PyTuple_GetSlice(p *PyObject, low, high int) *PyObject {
 func PyTuple_SetItem(p *PyObject, pos int, o *PyObject) {
 	C.PyTuple_SetItem(toc(p), C.Py_ssize_t(pos), toc(o))
 }
-
