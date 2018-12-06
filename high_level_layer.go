@@ -6,12 +6,11 @@ package python3
 */
 import "C"
 import (
-	"fmt"
 	"unsafe"
 )
 
 //Py_Main : https://docs.python.org/3/c-api/veryhigh.html?highlight=pycompilerflags#c.Py_Main
-func Py_Main(args []string) error {
+func Py_Main(args []string) int {
 	argc := C.int(len(args))
 	argv := make([]*C.wchar_t, argc, argc)
 	for i, arg := range args {
@@ -20,26 +19,18 @@ func Py_Main(args []string) error {
 
 		warg := C.Py_DecodeLocale(carg, nil)
 		if warg == nil {
-			return fmt.Errorf("Unable to convert command line to *wchar_t")
+			return -1
 		}
 		// Py_DecodeLocale requires a call to PyMem_RawFree to free the memory
 		defer C.PyMem_RawFree(unsafe.Pointer(warg))
-
 		argv[i] = warg
 	}
-	ret := C.Py_Main(argc, (**C.wchar_t)(unsafe.Pointer(&argv[0])))
 
-	if ret == 1 {
-		return fmt.Errorf("The interpreter exited due to an exception")
-	}
-	if ret == 2 {
-		return fmt.Errorf("The parameter list does not represent a valid Python command line")
-	}
-	return nil
+	return int(C.Py_Main(argc, (**C.wchar_t)(unsafe.Pointer(&argv[0]))))
 }
 
 //PyRun_AnyFile : https://docs.python.org/3/c-api/veryhigh.html?highlight=pycompilerflags#c.PyRun_AnyFile
-func PyRun_AnyFile(filename string) error {
+func PyRun_AnyFile(filename string) int {
 	cfilename := C.CString(filename)
 	defer C.free(unsafe.Pointer(cfilename))
 
@@ -48,27 +39,19 @@ func PyRun_AnyFile(filename string) error {
 
 	cfile := C.fopen(cfilename, mode)
 	if cfile == nil {
-		return fmt.Errorf("File %s cannot be opened", filename)
+		return 1
 	}
 	defer C.fclose(cfile)
 
-	ret := C.PyRun_AnyFileFlags(cfile, cfilename, nil)
-
-	if ret == -1 {
-		return fmt.Errorf("An exception was raised during execution")
-	}
-	return nil
+	// C.PyRun_AnyFile is a macro, using C.PyRun_AnyFileFlags instead
+	return int(C.PyRun_AnyFileFlags(cfile, cfilename, nil))
 }
 
 //PyRun_SimpleString : https://docs.python.org/3/c-api/veryhigh.html?highlight=pycompilerflags#c.PyRun_SimpleString
-func PyRun_SimpleString(command string) error {
+func PyRun_SimpleString(command string) int {
 	ccommand := C.CString(command)
 	defer C.free(unsafe.Pointer(ccommand))
 
-	ret := C.PyRun_SimpleStringFlags(ccommand, nil)
-
-	if ret == -1 {
-		return fmt.Errorf("An exception was raised during execution")
-	}
-	return nil
+	// C.PyRun_SimpleString is a macro, using C.PyRun_SimpleStringFlags instead
+	return int(C.PyRun_SimpleStringFlags(ccommand, nil))
 }
