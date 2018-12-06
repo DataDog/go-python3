@@ -13,4 +13,3 @@ func togo(cobject *C.PyObject) *PyObject {
 func toc(object *PyObject) *C.PyObject {
 	return (*C.PyObject)(object)
 }
-
