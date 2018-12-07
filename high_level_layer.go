@@ -6,6 +6,7 @@ package python3
 */
 import "C"
 import (
+	"fmt"
 	"unsafe"
 )
 
