@@ -36,8 +36,8 @@ func PyList_GetItem(p *PyObject, pos int) *PyObject {
 }
 
 //PyList_SetItem : https://docs.python.org/3/c-api/list.html#c.PyList_SetItem
-func PyList_SetItem(p *PyObject, pos int, o *PyObject) {
-	C.PyList_SetItem(toc(p), C.Py_ssize_t(pos), toc(o))
+func PyList_SetItem(p *PyObject, pos int, o *PyObject) int {
+	return int(C.PyList_SetItem(toc(p), C.Py_ssize_t(pos), toc(o)))
 }
 
 //PyList_Insert : https://docs.python.org/3/c-api/list.html#c.PyList_Insert
