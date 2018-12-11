@@ -11,28 +11,34 @@ jobs:
     <<: *job_template
     steps:
       - checkout
+      - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      - run: dep ensure
       - run: echo "deb http://deb.debian.org/debian unstable main" >> /etc/apt/sources.list
       - run: apt-get update && apt-get install -y python3.5-dev
       - run: cp /usr/lib/x86_64-linux-gnu/pkgconfig/python-3.5.pc /usr/lib/x86_64-linux-gnu/pkgconfig/python3.pc
-      - run: cd test && go build && ./test
+      - run: go test -cover
 
   python3.6:
     <<: *job_template
     steps:
       - checkout
+      - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      - run: dep ensure
       - run: echo "deb http://deb.debian.org/debian unstable main" >> /etc/apt/sources.list
       - run: apt-get update && apt-get install -y python3.6-dev
       - run: cp /usr/lib/x86_64-linux-gnu/pkgconfig/python-3.6.pc /usr/lib/x86_64-linux-gnu/pkgconfig/python3.pc
-      - run: cd test && go build && ./test
+      - run: go test -cover
 
   python3.7:
     <<: *job_template
     steps:
       - checkout
+      - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh      
+      - run: dep ensure
       - run: echo "deb http://deb.debian.org/debian unstable main" >> /etc/apt/sources.list
       - run: apt-get update && apt-get install -y python3.7-dev
       - run: cp /usr/lib/x86_64-linux-gnu/pkgconfig/python-3.7.pc /usr/lib/x86_64-linux-gnu/pkgconfig/python3.pc
-      - run: cd test && go build && ./test
+      - run: go test -cover
 
 workflows:
   version: 2
