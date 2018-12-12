@@ -115,6 +115,21 @@ func PyDict_Size(p *PyObject) int {
 	return int(C.PyDict_Size(toc(p)))
 }
 
+//PyDict_Next : https://docs.python.org/3/c-api/dict.html#c.PyDict_Next
+func PyDict_Next(p *PyObject, ppos *int, pkey, pvalue **PyObject) bool {
+	cpos := C.long(*ppos)
+	ckey := toc(*pkey)
+	cvalue := toc(*pvalue)
+
+	res := C.PyDict_Next(toc(p), &cpos, &ckey, &cvalue) != 0
+
+	*ppos = int(cpos)
+	*pkey = togo(ckey)
+	*pvalue = togo(cvalue)
+
+	return res
+}
+
 //PyDict_ClearFreeList : https://docs.python.org/3/c-api/dict.html#c.PyDict_ClearFreeList
 func PyDict_ClearFreeList() int {
 	return int(C.PyDict_ClearFreeList())
