@@ -307,3 +307,35 @@ func TestObjectType(t *testing.T) {
 
 	assert.Equal(t, Long, i.Type())
 }
+
+func TestHashNotImplemented(t *testing.T) {
+	Py_Initialize()
+
+	s := PyUnicode_FromString("test string")
+	defer s.DecRef()
+
+	assert.Equal(t, -1, s.HashNotImplemented())
+
+	assert.True(t, PyErr_ExceptionMatches(PyExc_TypeError))
+
+	PyErr_Clear()
+}
+
+func TestObjectIter(t *testing.T) {
+	Py_Initialize()
+
+	i := PyLong_FromGoInt(23)
+	defer i.DecRef()
+
+	assert.Nil(t, i.GetIter())
+
+	assert.True(t, PyErr_ExceptionMatches(PyExc_TypeError))
+	PyErr_Clear()
+
+	list := PyList_New(23)
+	defer list.DecRef()
+
+	iter := list.GetIter()
+	assert.NotNil(t, iter)
+	defer iter.DecRef()
+}
