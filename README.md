@@ -8,6 +8,20 @@ This package provides a ``go`` package named "python" under which most of the
 exposed. Theoretically, you should be able use https://docs.python.org/3/c-api
 and know what to type in your ``go`` program.
 
+Currently supports python-3.7+  
+
+
+Install
+-------
+
+Simply `go get github.com/DataDog/go-python3`
+
+
+Build
+-----
+
+We will need `pkg-config` and a working `python3` environment to build these bindings. By default `pkg-config` will look at the `python3` library so if you want to choose a specific version just symlink `python-X.Y.pc` to `python3.pc` or use the `PKG_CONFIG_PATH` environment variable.
+
 API
 ---
 
