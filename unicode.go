@@ -24,7 +24,7 @@ func PyUnicode_CheckExact(o *PyObject) bool {
 }
 
 //PyUnicode_New : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_New
-func PyUnicode_New(size, maxchar rune) *PyObject {
+func PyUnicode_New(size int, maxchar rune) *PyObject {
 	return togo(C.PyUnicode_New(C.Py_ssize_t(size), C.Py_UCS4(maxchar)))
 }
 
