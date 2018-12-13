@@ -94,8 +94,8 @@ func PyException_GetTraceback(ex *PyObject) *PyObject {
 }
 
 //PyException_SetTraceback : https://docs.python.org/3/c-api/exceptions.html#c.PyException_SetTraceback
-func PyException_SetTraceback(ex, tb *PyObject) {
-	C.PyException_SetTraceback(toc(ex), toc(tb))
+func PyException_SetTraceback(ex, tb *PyObject) int {
+	return int(C.PyException_SetTraceback(toc(ex), toc(tb)))
 }
 
 //PyException_GetContext : https://docs.python.org/3/c-api/exceptions.html#c.PyException_GetContext
