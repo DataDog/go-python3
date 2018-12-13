@@ -1,3 +1,10 @@
+/*
+Unless explicitly stated otherwise all files in this repository are licensed
+under the $license_for_repo License.
+This product includes software developed at Datadog (https://www.datadoghq.com/).
+Copyright 2018 Datadog, Inc.
+*/
+
 package main
 
 import (
@@ -22,12 +29,20 @@ func main() {
 		os.Exit(1)
 	}
 	defer out.Close()
+	_, err = out.WriteString(`/*
+Unless explicitly stated otherwise all files in this repository are licensed
+under the $license_for_repo License.
+This product includes software developed at Datadog (https://www.datadoghq.com/).
+Copyright 2018 Datadog, Inc.
+*/
 
-	_, err = out.WriteString("#include \"Python.h\"\n\n")
+`)
 	if err != nil {
 		fmt.Printf("Error writing to file %s: %s", *output, err)
 		os.Exit(1)
 	}
+
+	out.WriteString("#include \"Python.h\"\n\n")
 	out.WriteString(renderTemplate(*caseNumber, "PyObject_CallFunctionObjArgs", "callable"))
 	out.WriteString(renderTemplate(*caseNumber, "PyObject_CallMethodObjArgs", "obj", "name"))
 
