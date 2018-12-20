@@ -10,7 +10,6 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-#include "type.h"
 */
 import "C"
 import (
@@ -18,7 +17,7 @@ import (
 )
 
 //Long : https://docs.python.org/3/c-api/long.html#c.PyLong_Type
-var Long = togo(C._go_PyLong_Type)
+var Long = togo((*C.PyObject)(unsafe.Pointer(&C.PyLong_Type)))
 
 //PyLong_Check : https://docs.python.org/3/c-api/long.html#c.PyLong_Check
 func PyLong_Check(p *PyObject) bool {

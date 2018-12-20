@@ -10,7 +10,6 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-#include "type.h"
 */
 import "C"
 import (
@@ -18,7 +17,7 @@ import (
 )
 
 //Unicode : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_Type
-var Unicode = togo(C._go_PyUnicode_Type)
+var Unicode = togo((*C.PyObject)(unsafe.Pointer(&C.PyUnicode_Type)))
 
 //PyUnicode_Check : https://docs.python.org/3/c-api/unicode.html#c.PyUnicode_Check
 func PyUnicode_Check(o *PyObject) bool {
