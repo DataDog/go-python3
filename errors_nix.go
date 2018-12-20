@@ -1,10 +1,10 @@
-/*
-Unless explicitly stated otherwise all files in this repository are licensed
-under the $license_for_repo License.
-This product includes software developed at Datadog (https://www.datadoghq.com/).
-Copyright 2018 Datadog, Inc.
-*/
-//+build !windows
+// Unless explicitly stated otherwise all files in this repository are licensed
+// under $license_for_repo License.
+// This product includes software developed at Datadog (https://www.datadoghq.com/).
+// Copyright 2018 Datadog, Inc.
+
+// +build !windows
+
 package python3
 
 /*
