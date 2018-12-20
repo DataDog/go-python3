@@ -10,9 +10,9 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-#include "type.h"
 */
 import "C"
+import "unsafe"
 
 //python boolean constants
 var (
@@ -21,7 +21,7 @@ var (
 )
 
 //Bool : https://docs.python.org/3/c-api/bool.html#c.PyBool_Type
-var Bool = togo(C._go_PyBool_Type)
+var Bool = togo((*C.PyObject)(unsafe.Pointer(&C.PyBool_Type)))
 
 //PyBool_Check : https://docs.python.org/3/c-api/bool.html#c.PyBool_Check
 func PyBool_Check(o *PyObject) bool {

@@ -10,12 +10,12 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-#include "type.h"
 */
 import "C"
+import "unsafe"
 
 //Float : https://docs.python.org/3/c-api/float.html#c.PyFloat_Type
-var Float = togo(C._go_PyFloat_Type)
+var Float = togo((*C.PyObject)(unsafe.Pointer(&C.PyFloat_Type)))
 
 //PyFloat_Check : https://docs.python.org/3/c-api/float.html#c.PyFloat_Check
 func PyFloat_Check(p *PyObject) bool {

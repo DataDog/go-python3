@@ -10,13 +10,12 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-#include "type.h"
 */
 import "C"
 import "unsafe"
 
 //Bytes : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_Type
-var Bytes = togo(C._go_PyBytes_Type)
+var Bytes = togo((*C.PyObject)(unsafe.Pointer(&C.PyBytes_Type)))
 
 //PyBytes_Check : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_Check
 func PyBytes_Check(o *PyObject) bool {
