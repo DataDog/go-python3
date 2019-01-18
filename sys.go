@@ -53,11 +53,6 @@ func PySys_AddWarnOption(s string) error {
 	return nil
 }
 
-//PySys_AddWarnOptionUnicode : https://docs.python.org/3/c-api/sys.html#c.PySys_AddWarnOptionUnicode
-func PySys_AddWarnOptionUnicode(unicode *PyObject) {
-	C.PySys_AddWarnOptionUnicode(toc(unicode))
-}
-
 //PySys_SetPath : https://docs.python.org/3/c-api/sys.html#c.PySys_SetPath
 func PySys_SetPath(path string) error {
 	cpath := C.CString(path)

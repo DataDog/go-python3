@@ -119,3 +119,27 @@ func TestPythonHome(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, name, newName)
 }
+
+func TestSetArgv(t *testing.T) {
+	Py_Initialize()
+
+	PySys_SetArgv([]string{"test.py"})
+
+	argv := PySys_GetObject("argv")
+	assert.Equal(t, 1, PyList_Size(argv))
+	assert.Equal(t, "test.py", PyUnicode_AsUTF8(PyList_GetItem(argv, 0)))
+
+	Py_Finalize()
+}
+
+func TestSetArgvEx(t *testing.T) {
+	Py_Initialize()
+
+	PySys_SetArgvEx([]string{"test.py"}, false)
+
+	argv := PySys_GetObject("argv")
+	assert.Equal(t, 1, PyList_Size(argv))
+	assert.Equal(t, "test.py", PyUnicode_AsUTF8(PyList_GetItem(argv, 0)))
+
+	Py_Finalize()
+}

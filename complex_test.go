@@ -14,6 +14,8 @@ import (
 )
 
 func TestComplex(t *testing.T) {
+	Py_Initialize()
+
 	real := 2.
 	imaginary := 5.
 

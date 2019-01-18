@@ -16,22 +16,41 @@ import (
 func TestAttrString(t *testing.T) {
 	Py_Initialize()
 
-	s := PyUnicode_FromString("test")
+	sys := PyImport_ImportModule("sys")
+	defer sys.DecRef()
 
-	assert.True(t, s.HasAttrString("split"))
-	split := s.GetAttrString("split")
-	assert.NotNil(t, split)
+	assert.True(t, sys.HasAttrString("stdout"))
+	stdout := sys.GetAttrString("stdout")
+	assert.NotNil(t, stdout)
+
+	assert.Zero(t, sys.DelAttrString("stdout"))
+
+	assert.Nil(t, sys.GetAttrString("stdout"))
+	PyErr_Clear()
+
+	assert.Zero(t, sys.SetAttrString("stdout", stdout))
+
 }
 
 func TestAttr(t *testing.T) {
 	Py_Initialize()
 
-	s := PyUnicode_FromString("test")
-	name := PyUnicode_FromString("split")
+	name := PyUnicode_FromString("stdout")
+	defer name.DecRef()
 
-	assert.True(t, s.HasAttr(name))
-	split := s.GetAttr(name)
-	assert.NotNil(t, split)
+	sys := PyImport_ImportModule("sys")
+	defer sys.DecRef()
+
+	assert.True(t, sys.HasAttr(name))
+	stdout := sys.GetAttr(name)
+	assert.NotNil(t, stdout)
+
+	assert.Zero(t, sys.DelAttr(name))
+
+	assert.Nil(t, sys.GetAttr(name))
+	PyErr_Clear()
+
+	assert.Zero(t, sys.SetAttr(name, stdout))
 }
 
 func TestRichCompareBool(t *testing.T) {
@@ -255,4 +274,75 @@ func TestDir(t *testing.T) {
 
 	assert.Equal(t, "['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']", PyUnicode_AsUTF8(repr))
 
+}
+
+func TestReprEnterLeave(t *testing.T) {
+	Py_Initialize()
+
+	s := PyUnicode_FromString("hello world")
+	defer s.DecRef()
+
+	assert.Zero(t, s.ReprEnter())
+
+	assert.True(t, s.ReprEnter() > 0)
+
+	s.ReprLeave()
+	s.ReprLeave()
+}
+
+func TestIsSubclass(t *testing.T) {
+	Py_Initialize()
+
+	assert.Equal(t, 1, PyExc_Warning.IsSubclass(PyExc_Exception))
+	assert.Equal(t, 0, Bool.IsSubclass(Float))
+}
+
+func TestHash(t *testing.T) {
+	Py_Initialize()
+
+	s := PyUnicode_FromString("test string")
+	defer s.DecRef()
+
+	assert.NotEqual(t, -1, s.Hash())
+}
+
+func TestObjectType(t *testing.T) {
+	Py_Initialize()
+
+	i := PyLong_FromGoInt(23543)
+	defer i.DecRef()
+
+	assert.Equal(t, Long, i.Type())
+}
+
+func TestHashNotImplemented(t *testing.T) {
+	Py_Initialize()
+
+	s := PyUnicode_FromString("test string")
+	defer s.DecRef()
+
+	assert.Equal(t, -1, s.HashNotImplemented())
+
+	assert.True(t, PyErr_ExceptionMatches(PyExc_TypeError))
+
+	PyErr_Clear()
+}
+
+func TestObjectIter(t *testing.T) {
+	Py_Initialize()
+
+	i := PyLong_FromGoInt(23)
+	defer i.DecRef()
+
+	assert.Nil(t, i.GetIter())
+
+	assert.True(t, PyErr_ExceptionMatches(PyExc_TypeError))
+	PyErr_Clear()
+
+	list := PyList_New(23)
+	defer list.DecRef()
+
+	iter := list.GetIter()
+	assert.NotNil(t, iter)
+	defer iter.DecRef()
 }

@@ -68,6 +68,15 @@ func TestPyLongFromAsDouble(t *testing.T) {
 	pyLong.DecRef()
 }
 
+func TestPyLongFromAsGoFloat64(t *testing.T) {
+	Py_Initialize()
+	v := float64(2354.0)
+	pyLong := PyLong_FromGoFloat64(v)
+	assert.NotNil(t, pyLong)
+	assert.Equal(t, v, PyLong_AsDouble(pyLong))
+	pyLong.DecRef()
+}
+
 func TestPyLongFromAsString(t *testing.T) {
 	Py_Initialize()
 	v := 2354
