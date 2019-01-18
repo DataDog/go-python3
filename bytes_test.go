@@ -54,9 +54,11 @@ func TestBytesConcat(t *testing.T) {
 
 	bytes1 := PyBytes_FromString(s1)
 
-	bytes2 := PyBytes_FromString(s2)
+	array := PyByteArray_FromStringAndSize(s2)
+	defer array.DecRef()
+
+	bytes2 := PyBytes_FromObject(array)
 	assert.NotNil(t, bytes2)
-	defer bytes2.DecRef()
 
 	bytes1 = PyBytes_Concat(bytes1, bytes2)
 	assert.NotNil(t, bytes1)

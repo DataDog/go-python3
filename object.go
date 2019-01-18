@@ -85,9 +85,8 @@ func (pyObject *PyObject) GetAttrString(attr_name string) *PyObject {
 }
 
 //SetAttr : https://docs.python.org/3/c-api/object.html#c.PyObject_SetAttr
-func (pyObject *PyObject) SetAttr(attr_name *PyObject, v *PyObject) {
-
-	C.PyObject_SetAttr(toc(pyObject), toc(attr_name), toc(v))
+func (pyObject *PyObject) SetAttr(attr_name *PyObject, v *PyObject) int {
+	return int(C.PyObject_SetAttr(toc(pyObject), toc(attr_name), toc(v)))
 }
 
 //SetAttrString : https://docs.python.org/3/c-api/object.html#c.PyObject_SetAttrString
@@ -99,16 +98,16 @@ func (pyObject *PyObject) SetAttrString(attr_name string, v *PyObject) int {
 }
 
 //DelAttr : https://docs.python.org/3/c-api/object.html#c.PyObject_DelAttr
-func (pyObject *PyObject) DelAttr(attr_name *PyObject) {
-	C._go_PyObject_DelAttr(toc(pyObject), toc(attr_name))
+func (pyObject *PyObject) DelAttr(attr_name *PyObject) int {
+	return int(C._go_PyObject_DelAttr(toc(pyObject), toc(attr_name)))
 }
 
 //DelAttrString : https://docs.python.org/3/c-api/object.html#c.PyObject_DelAttrString
-func (pyObject *PyObject) DelAttrString(attr_name string) {
+func (pyObject *PyObject) DelAttrString(attr_name string) int {
 	cattr_name := C.CString(attr_name)
 	defer C.free(unsafe.Pointer(cattr_name))
 
-	C._go_PyObject_DelAttrString(toc(pyObject), cattr_name)
+	return int(C._go_PyObject_DelAttrString(toc(pyObject), cattr_name))
 }
 
 //RichCompare : https://docs.python.org/3/c-api/object.html#c.PyObject_RichCompare

@@ -126,6 +126,90 @@ func TestExecCodeModule(t *testing.T) {
 
 }
 
+func TestExecCodeModuleEx(t *testing.T) {
+	Py_Initialize()
+
+	// fake module
+	source := PyUnicode_FromString("__version__ = '2.0'")
+	defer source.DecRef()
+	filename := PyUnicode_FromString("test_module.py")
+	defer filename.DecRef()
+	mode := PyUnicode_FromString("exec")
+	defer mode.DecRef()
+
+	// perform module load
+	builtins := PyEval_GetBuiltins()
+	assert.True(t, PyDict_Check(builtins))
+
+	compile := PyDict_GetItemString(builtins, "compile")
+	assert.True(t, PyCallable_Check(compile))
+
+	code := compile.CallFunctionObjArgs(source, filename, mode)
+	assert.NotNil(t, code)
+	defer code.DecRef()
+
+	module := PyImport_ExecCodeModuleEx("test_module", code, "test_module.py")
+	assert.NotNil(t, module)
+
+}
+
+func TestExecCodeModuleWithPathnames(t *testing.T) {
+	Py_Initialize()
+
+	// fake module
+	source := PyUnicode_FromString("__version__ = '2.0'")
+	defer source.DecRef()
+	filename := PyUnicode_FromString("test_module.py")
+	defer filename.DecRef()
+	mode := PyUnicode_FromString("exec")
+	defer mode.DecRef()
+
+	// perform module load
+	builtins := PyEval_GetBuiltins()
+	assert.True(t, PyDict_Check(builtins))
+
+	compile := PyDict_GetItemString(builtins, "compile")
+	assert.True(t, PyCallable_Check(compile))
+
+	code := compile.CallFunctionObjArgs(source, filename, mode)
+	assert.NotNil(t, code)
+	defer code.DecRef()
+
+	module := PyImport_ExecCodeModuleWithPathnames("test_module", code, "test_module.py", "test_module.py")
+	assert.NotNil(t, module)
+
+}
+
+func TestExecCodeModuleObject(t *testing.T) {
+	Py_Initialize()
+
+	// fake module
+	source := PyUnicode_FromString("__version__ = '2.0'")
+	defer source.DecRef()
+	filename := PyUnicode_FromString("test_module.py")
+	defer filename.DecRef()
+	mode := PyUnicode_FromString("exec")
+	defer mode.DecRef()
+
+	// perform module load
+	builtins := PyEval_GetBuiltins()
+	assert.True(t, PyDict_Check(builtins))
+
+	compile := PyDict_GetItemString(builtins, "compile")
+	assert.True(t, PyCallable_Check(compile))
+
+	code := compile.CallFunctionObjArgs(source, filename, mode)
+	assert.NotNil(t, code)
+	defer code.DecRef()
+
+	moduleName := PyUnicode_FromString("test_module")
+	defer moduleName.DecRef()
+
+	module := PyImport_ExecCodeModuleObject(moduleName, code, filename, filename)
+	assert.NotNil(t, module)
+
+}
+
 func TestGetMagicNumber(t *testing.T) {
 	Py_Initialize()
 
