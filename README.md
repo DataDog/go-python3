@@ -40,3 +40,5 @@ the `int` represent the error code from the CPython `PyRun_AnyFile` function
 and error will be set if we failed to open `filename`.
 
 If an error is raise before calling th CPython function `int` default to `-1`.
+
+Take a look at some [examples](examples)
