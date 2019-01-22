@@ -12,7 +12,10 @@ package python3
 #include "macro.h"
 */
 import "C"
-import "unsafe"
+
+import (
+	"unsafe"
+)
 
 //python boolean constants
 var (

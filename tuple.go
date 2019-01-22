@@ -10,7 +10,6 @@ package python3
 /*
 #include "Python.h"
 #include "macro.h"
-
 */
 import "C"
 import "unsafe"
