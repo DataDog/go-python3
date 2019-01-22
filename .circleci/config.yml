@@ -44,6 +44,8 @@ workflows:
   version: 2
   build_test_deploy:
     jobs:
+      # Currently we inconditionally bind some newer functions making 3.5 and 3.6 nott working.
+      # We could later check for python version and readd the tests
       # - python3.5
       # - python3.6
       - python3.7
