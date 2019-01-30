@@ -123,7 +123,7 @@ func PyDict_Size(p *PyObject) int {
 
 //PyDict_Next : https://docs.python.org/3/c-api/dict.html#c.PyDict_Next
 func PyDict_Next(p *PyObject, ppos *int, pkey, pvalue **PyObject) bool {
-	cpos := C.long(*ppos)
+	cpos := C.Py_ssize_t(*ppos)
 	ckey := toc(*pkey)
 	cvalue := toc(*pvalue)
 
