@@ -52,7 +52,7 @@ func PyByteArray_Size(o *PyObject) int {
 
 //PyByteArray_AsString : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_AsString
 func PyByteArray_AsString(o *PyObject) string {
-	return C.GoString(C.PyByteArray_AsString(toc(o)))
+	return C.GoStringN(C.PyByteArray_AsString(toc(o)), C.int(C.PyByteArray_Size(toc(o))))
 }
 
 //PyByteArray_Resize : https://docs.python.org/3/c-api/bytearray.html#c.PyByteArray_Resize
