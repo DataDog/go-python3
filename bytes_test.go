@@ -35,6 +35,17 @@ func TestBytesFromAsString(t *testing.T) {
 	assert.Equal(t, s1, PyBytes_AsString(bytes1))
 }
 
+func TestBytesFromStringAndSize(t *testing.T) {
+	Py_Initialize()
+
+	s1 := "aaaaaaaa\x00bbbb"
+
+	bytes1 := PyBytes_FromStringAndSize(s1)
+	defer bytes1.DecRef()
+
+	assert.Equal(t, s1, PyBytes_AsString(bytes1))
+}
+
 func TestBytesSize(t *testing.T) {
 	Py_Initialize()
 
