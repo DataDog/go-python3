@@ -35,6 +35,14 @@ func PyBytes_FromString(str string) *PyObject {
 	return togo(C.PyBytes_FromString(cstr))
 }
 
+//PyBytes_FromStringAndSize : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_FromStringAndSize
+func PyBytes_FromStringAndSize(str string) *PyObject {
+	cstr := C.CString(str)
+	defer C.free(unsafe.Pointer(cstr))
+
+	return togo(C.PyBytes_FromStringAndSize(cstr, C.Py_ssize_t(len(str))))
+}
+
 //PyBytes_FromObject : https://docs.python.org/3/c-api/bytes.html#c.PyBytes_FromObject
 func PyBytes_FromObject(o *PyObject) *PyObject {
 	return togo(C.PyBytes_FromObject(toc(o)))
