@@ -1,6 +1,6 @@
 /*
 Unless explicitly stated otherwise all files in this repository are licensed
-under the $license_for_repo License.
+under the MIT License.
 This product includes software developed at Datadog (https://www.datadoghq.com/).
 Copyright 2018 Datadog, Inc.
 */
@@ -31,7 +31,7 @@ func main() {
 	defer out.Close()
 	_, err = out.WriteString(`/*
 Unless explicitly stated otherwise all files in this repository are licensed
-under the $license_for_repo License.
+under the MIT License.
 This product includes software developed at Datadog (https://www.datadoghq.com/).
 Copyright 2018 Datadog, Inc.
 */
