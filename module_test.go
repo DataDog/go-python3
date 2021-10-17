@@ -93,7 +93,7 @@ func TestModuleGetState(t *testing.T) {
 	defer sys.DecRef()
 
 	state := PyModule_GetState(sys)
-	assert.NotNil(t, state)
+	assert.True(t, state == nil)
 }
 
 func TestModuleGetFilenameObject(t *testing.T) {

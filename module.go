@@ -58,7 +58,7 @@ func PyModule_GetName(module *PyObject) string {
 
 //PyModule_GetState : https://docs.python.org/3/c-api/module.html#c.PyModule_GetState
 func PyModule_GetState(module *PyObject) unsafe.Pointer {
-	return unsafe.Pointer(C.PyModule_GetNameObject(toc(module)))
+	return unsafe.Pointer(C.PyModule_GetState(toc(module)))
 }
 
 //PyModule_GetFilenameObject : https://docs.python.org/3/c-api/module.html#c.PyModule_GetFilenameObject
