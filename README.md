@@ -1,3 +1,5 @@
+**This repo will be archived on December 1st 2021. While still readable it will no longer be maintained.**
+
 # go-python3
 
 **Currently supports python-3.7 only.**
