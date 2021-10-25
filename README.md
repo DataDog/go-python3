@@ -56,4 +56,9 @@ Take a look at some [examples](examples) and this [tutorial blogpost](https://po
 # Contributing
 
 Contributions are welcome! See [details](CONTRIBUTING.md).  
+
+
+# Community
+Find us in [`#go-python`](https://gophers.slack.com/archives/C4FDJLLET) on [Gophers Slack](https://gophers.slack.com). ([infos](https://blog.gopheracademy.com/gophers-slack-community/) | [invite](https://invite.slack.golangbridge.org/))  
+  
 This project follows the [Go Community Code of Conduct](https://golang.org/conduct).
