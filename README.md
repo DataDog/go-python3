@@ -1,4 +1,4 @@
-**This repo will be archived on December 1st 2021. While still readable it will no longer be maintained.**
+**This repo will be archived on December 1st 2021. While still readable it will no longer be maintained.** There's a community maintained successor of this project at https://github.com/go-python/cpy3 .
 
 # go-python3
 
