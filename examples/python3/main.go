@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/DataDog/go-python3"
+	python3 "github.com/go-python/cpy3"
 )
 
 func main() {
